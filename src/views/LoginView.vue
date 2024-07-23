@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { userlogin } from '../api/login/index'
+import router from '@/router'
+
 const uname = ref("")
 const passwd = ref("")
 let unameerr = ref("")
@@ -11,9 +14,26 @@ function passwdinput(e) {
     passwd.value = e.target.value
 }
 
-function login() {
+const login = async () => {
     console.log(`${uname.value},${passwd.value}`)
+    const result = await userlogin(uname.value, passwd.value)
+    console.log(`result: ${result}`)
+    console.log(`result.date: ${result.data}`)
+    if (result.code === 1) {
+        console.log("登录成功!")
+        localStorage.setItem('token', result.data);
+        router.push({ path: '/' })
+        // window.location.reload();
 
+    } else {
+        console.error(`登录失败,${result.message}`)
+        alert('用户名或密码错误,忘记密码可以联系管理员重置.')
+    }
+
+}
+
+const register = () => {
+    router.push({ path: '/register' })
 }
 
 
@@ -32,10 +52,9 @@ function login() {
             <label for="passwd"><b>密码</b></label>
             <input type="password" :value="passwd" @input="passwdinput" placeholder="输入你的密码" name="passwd" required>
             <p>{{ passwderr }}</p><br>
-            <button @click="login" type="submit">登录</button>
-        </div>
-        <div>
-            <p>加战队请加QQ群:XXXXXXXX(需要有拿破仑正版dlc)</p>
+            <el-button @click="login" type="primary">登录</el-button>
+            <el-button @click="register" type="primary">注册</el-button>
+
         </div>
     </div>
 </template>
