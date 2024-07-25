@@ -1,7 +1,7 @@
 import axios from 'axios'
 const url = import.meta.env.VITE_BASE_URL
 const token = localStorage.getItem('token')
-console.log(token)
+// console.log(token)
 const userInfo = (): Promise<any> => {
   return axios
     .get('/api/user/userInfo', {
@@ -11,7 +11,7 @@ const userInfo = (): Promise<any> => {
       }
     })
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       return response.data
     })
     .catch(function (err) {

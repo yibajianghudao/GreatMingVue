@@ -8,7 +8,7 @@ const userlogin = (name: string, passwd: string): Promise<any> => {
   return axios
     .post(`${url}/login?name=${name}&passwd=${passwd}`)
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       return response.data
     })
     .catch(function (err) {
