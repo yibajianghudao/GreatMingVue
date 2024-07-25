@@ -5,6 +5,6 @@ import Menu from '../components/Menu.vue';
 <template>
     <Menu></Menu>
     <div>
-        <h1>this is the home page.</h1>
+        <h1>This is the Store Page.</h1>
     </div>
 </template>

@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { userlogin } from '../api/login/index'
+import { userlogin } from '@/api/login/index'
 import router from '@/router'
 
 const uname = ref("")
 const passwd = ref("")
 let unameerr = ref("")
 let passwderr = ref("")
-function unameinput(e) {
+// let errorAlertVisible = ref(true);
+// let errorMessage = ref("");
+function unameinput(e: any) {
     uname.value = e.target.value
 }
-function passwdinput(e) {
+function passwdinput(e: any) {
     passwd.value = e.target.value
 }
 
 const login = async () => {
-    console.log(`${uname.value},${passwd.value}`)
+    // console.log(`${uname.value},${passwd.value}`)
     const result = await userlogin(uname.value, passwd.value)
     console.log(`result: ${result}`)
     console.log(`result.date: ${result.data}`)
@@ -27,7 +29,9 @@ const login = async () => {
 
     } else {
         console.error(`登录失败,${result.message}`)
-        alert('用户名或密码错误,忘记密码可以联系管理员重置.')
+        alert("用户名或密码错误,忘记密码可以联系管理员重置.")
+        // errorAlertVisible.value = true
+        // errorMessage.value = "用户名或密码错误,忘记密码可以联系管理员重置."
     }
 
 }
@@ -41,6 +45,10 @@ const register = () => {
 
 <template>
     <div class="container">
+        <!-- <el-affix target=".affix-container" :offset="80">
+            <el-alert v-if="errorAlertVisible" title="Login Error" type="error" center show-icon>{{ errorMessage
+                }}</el-alert>
+        </el-affix> -->
         <div>
             <h1>this is the login page </h1>
         </div>
@@ -54,6 +62,8 @@ const register = () => {
             <p>{{ passwderr }}</p><br>
             <el-button @click="login" type="primary">登录</el-button>
             <el-button @click="register" type="primary">注册</el-button>
+
+
 
         </div>
     </div>
