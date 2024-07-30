@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { userlogin } from '@/api/login/index'
 import router from '@/router'
+
 
 const uname = ref("")
 const passwd = ref("")
@@ -25,8 +26,8 @@ const login = async () => {
         // console.log("登录成功!")
         localStorage.removeItem('token') // 清除token
         localStorage.setItem('token', result.data);
-        router.push({ path: '/' })
-        // window.location.reload(); // 此处刷新网页会重复回到登录页面
+        router.push({ name: 'home' })
+        setTimeout(() => { router.go(0) }, 3000)
 
     } else {
         console.error(`登录失败,${result.message}`)
@@ -40,6 +41,8 @@ const login = async () => {
 const register = () => {
     router.push({ path: '/register' })
 }
+
+
 
 
 </script>
