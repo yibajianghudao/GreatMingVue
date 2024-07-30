@@ -5,9 +5,9 @@ import { userInfo } from '@/api/user/userinfo';
 import router from '@/router';
 
 const Info = ref(new Map())
+const componentKey = ref(0)
 
 const GetInfo = async () => {
-
     const result = await userInfo()
     if (result.code === 1) {
         // console.log("查询成功")
@@ -22,6 +22,7 @@ const GetInfo = async () => {
         Info.value.set("userpic", result.data.userpic)
         // console.log(Info.value)
         // console.log(Info.value.get("name"))
+        componentKey.value += 1
     } else {
         if (result.message.split(" ")[3] === "expired") {
             // console.log(result.message)
@@ -46,7 +47,7 @@ onMounted(() => {
 <template>
     <Menu></Menu>
     <div>
-        <el-descriptions title="User Info">
+        <el-descriptions title="Your Info" :key="componentKey">
             <!-- <el-descriptions-item label="Username">kooriookami</el-descriptions-item> -->
             <el-descriptions-item v-for="item in Info.keys()" :label="item">{{ Info.get(item)
                 }}</el-descriptions-item>
