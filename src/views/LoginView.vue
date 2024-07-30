@@ -23,6 +23,7 @@ const login = async () => {
     // console.log(`result.date: ${result.data}`)
     if (result.code === 1) {
         // console.log("登录成功!")
+        localStorage.removeItem('token') // 清除token
         localStorage.setItem('token', result.data);
         router.push({ path: '/' })
         // window.location.reload(); // 此处刷新网页会重复回到登录页面
