@@ -2,9 +2,9 @@ import axios from 'axios'
 const url = import.meta.env.VITE_BASE_URL
 const token = localStorage.getItem('token')
 // console.log(token)
-const userInfo = (): Promise<any> => {
+const getallproducts = (): Promise<any> => {
   return axios
-    .get(`${url}/user/userInfo`, {
+    .get(`${url}/getallproducts`, {
       params: {},
       headers: {
         Authorization: token
@@ -19,4 +19,20 @@ const userInfo = (): Promise<any> => {
       throw err
     })
 }
-export { userInfo }
+
+const buyproduct = (id: number, quantity: number): Promise<any> => {
+  return axios.post(
+    `${url}/order/buy`,
+    {
+      productId: id,
+      quantity: quantity
+    },
+    {
+      headers: {
+        Authorization: token
+      }
+    }
+  )
+}
+
+export { getallproducts, buyproduct }

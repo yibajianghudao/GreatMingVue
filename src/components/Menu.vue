@@ -54,8 +54,16 @@ if (token) {
 
 
 
-<style>
+<style scoped>
 .flex-grow {
     flex-grow: 1;
+}
+
+.el-menu-demo {
+    background-color: rgb(198, 198, 198);
+}
+
+.el-menu {
+    background-color: rgb(198, 198, 198);
 }
 </style>

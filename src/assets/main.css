@@ -33,3 +33,18 @@ a,
     padding: 0 2rem;
   }
 } */
+
+body {
+  background-color: #aaaa;
+}
+
+.el-descriptions {
+  --el-fill-color-blank: rgb(198, 198, 198);
+  background-color: rgb(198, 198, 198) !important;
+}
+.el-collapse {
+  --el-fill-color-blank: rgb(198, 198, 198);
+}
+/* .el-descriptions-item {
+  background-color: #aaaa;
+} */
