@@ -8,7 +8,6 @@ const handleSelect = (key: string, keyPath: string[]) => {
     if (key === "/user/exit") {
         localStorage.removeItem('token') // 清除token
         router.push('/')
-        window.location.reload(); // 刷新页面
     } else {
         // console.log(key, keyPath)
         index.value = (key)
