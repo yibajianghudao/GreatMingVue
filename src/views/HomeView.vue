@@ -19,8 +19,11 @@ import Menu from '../components/Menu.vue';
             <el-main>
                 <div class="announcement">
                     <h1>公告</h1>
-                    <h2>我队将于2024年7月27日举行队庆活动!</h2>
-                    <p>网站正在重构中,如果你有好的意见请私聊江湖刀</p>
+                    <h2>我队已于2024年7月27日举行十周年队庆活动!</h2>
+                    <h1>网站正在重构中</h1>
+                    <p>如果你遇到bug,反馈给江湖刀获得1军饷奖励</p>
+                    <p>如果你有好的建议,提供给江湖刀,采纳后获得2军饷奖励</p>
+                    <P>注意:请用发邮件的方式发送到:w202707535@outlook.com</P>
                 </div>
             </el-main>
         </el-container>
