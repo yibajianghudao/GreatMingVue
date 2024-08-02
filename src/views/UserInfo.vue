@@ -15,14 +15,14 @@ const GetInfo = async () => {
     if (result.code === 1) {
         // console.log("查询成功")
         // console.log(result.data)
-        Info.value.set("name", result.data.name)
+        Info.value.set("名称", result.data.name)
         // Info.value.set("tag", result.data.tag)
-        Info.value.set("ranks", result.data.ranks)
-        Info.value.set("company", result.data.company)
-        Info.value.set("attendance", result.data.attendance)
-        Info.value.set("kills", result.data.kills)
+        Info.value.set("军营", result.data.company)
+        Info.value.set("军衔", result.data.ranks)
+        Info.value.set("出勤", result.data.attendance)
+        Info.value.set("击杀", result.data.kills)
 
-        Info.value.set("balance", result.data.balance)
+        Info.value.set("军饷余额", result.data.balance)
         // Info.value.set("userpic", result.data.userpic)
         // console.log(Info.value)
         // console.log(Info.value.get("name"))
@@ -66,7 +66,7 @@ onMounted(() => {
         <el-descriptions title="Your Info" class="descriptions" column=1>
             <el-descriptions-item v-for="item in Info.keys()" :label="item">{{
                 Info.get(item)
-            }}</el-descriptions-item>
+                }}</el-descriptions-item>
         </el-descriptions>
     </div>
 </template>

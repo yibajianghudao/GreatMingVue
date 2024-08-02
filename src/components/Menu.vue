@@ -8,6 +8,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
     if (key === "/user/exit") {
         localStorage.removeItem('token') // 清除token
         router.push('/')
+        setTimeout(() => { router.go(0) }, 3000)
     } else {
         // console.log(key, keyPath)
         index.value = (key)
