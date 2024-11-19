@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { userInfo } from '@/api/user/userinfo';
-import Menu from '../components/Menu.vue';
+import Menu from '../components/SiteMenu.vue';
 import { onMounted, ref } from 'vue';
 import router from '@/router';
 import { getallproducts } from '@/api/product/product';

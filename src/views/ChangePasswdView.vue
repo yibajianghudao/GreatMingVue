@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Menu from '../components/Menu.vue';
+import Menu from '../components/SiteMenu.vue';
 import { ref } from 'vue';
 import { changepasswd } from '@/api/user/changepasswd';
 import router from '@/router';

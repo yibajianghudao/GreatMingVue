@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, ref, watch } from 'vue';
-import Menu from '../components/Menu.vue';
+import Menu from '../components/SiteMenu.vue';
 import { userInfo } from '@/api/user/userinfo';
 import router from '@/router';
 import { column } from 'element-plus/es/components/table-v2/src/common.mjs';
