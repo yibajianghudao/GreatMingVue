@@ -15,6 +15,10 @@ const GetInfo = async () => {
     if (result.code === 1) {
         // console.log("查询成功")
         // console.log(result.data)
+
+        // 设置admin,决定是否显示admin页面按钮
+        SetAdmin(result.data.tag)
+
         Info.value.set("名称", result.data.name)
         // Info.value.set("tag", result.data.tag)
         Info.value.set("军营", result.data.company)
@@ -51,6 +55,17 @@ const GetInfo = async () => {
 
 // })
 
+const SetAdmin = (tag: String) => {
+    if (tag === "Admin") {
+        localStorage.removeItem('admin') // 清除token
+        localStorage.setItem('admin', "true");
+    } else {
+        localStorage.removeItem('admin') // 清除token
+        localStorage.setItem('admin', "false");
+    }
+}
+
+
 onMounted(() => {
     // console.log('组件已经被挂载');
     GetInfo()
@@ -62,13 +77,42 @@ onMounted(() => {
 
 <template>
     <Menu></Menu>
-    <div>
-        <el-descriptions title="Your Info" class="descriptions" column=1>
+    <div class="center fontinit">
+        <!-- <el-descriptions title="Your Info" class="descriptions" column=1>
             <el-descriptions-item v-for="item in Info.keys()" :label="item">{{
                 Info.get(item)
                 }}</el-descriptions-item>
-        </el-descriptions>
+        </el-descriptions> -->
+        <ul>
+            <li class="li-style-none" v-for="item in Info.keys()">{{ item + "\t\t" + Info.get(item) }}</li>
+        </ul>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.fontinit {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
+    font-size: large;
+}
+
+.li-style-none {
+    list-style-type: none;
+}
+</style>

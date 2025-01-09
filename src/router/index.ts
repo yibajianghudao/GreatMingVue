@@ -4,6 +4,7 @@ import HomePage from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import StoreView from '@/views/StoreView.vue'
+import AdminView from '@/views/AdminView.vue'
 import UserInfo from '../views/UserInfo.vue'
 import ChangePasswdView from '../views/ChangePasswdView.vue'
 const router = createRouter({
@@ -18,6 +19,11 @@ const router = createRouter({
       path: '/store',
       name: 'store',
       component: StoreView
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminView
     },
     {
       path: '/login',

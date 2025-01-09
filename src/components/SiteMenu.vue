@@ -23,6 +23,7 @@ const menuList = new Map<string, string>([
     ['/store', 'Store'],
 ])
 const userMenuList = new Map<string, string>([
+    ['/admin', 'Admin'],
     ['/user/info', 'UserInfo'],
     ['/user/changepasswd', 'ChangePasswd'],
     ['/user/exit', 'Exit']
@@ -32,11 +33,13 @@ const userMenuList = new Map<string, string>([
 // localStorage.removeItem('token');　// 清除token
 const logined = ref(false)
 const token = localStorage.getItem('token')
+const admin = localStorage.getItem('admin')
 // console.log(token)
 if (token) {
     logined.value = true
     // console.log("Have Token")
 }
+
 
 </script>
 <template>
@@ -46,7 +49,10 @@ if (token) {
         <div class="flex-grow" />
         <el-sub-menu v-if="logined" index="user">
             <template #title>User</template>
-            <el-menu-item v-for="userMenu in userMenuList" :index=userMenu[0]>{{ userMenu[1] }}</el-menu-item>
+            <template v-for="userMenu in userMenuList">
+                <el-menu-item v-if="admin === 'true' || userMenu[1] !== 'Admin'" :index=userMenu[0]>{{ userMenu[1] }}</el-menu-item>
+            </template>
+            
         </el-sub-menu>
         <el-menu-item v-if="!logined" index="/login">登录</el-menu-item>
     </el-menu>
