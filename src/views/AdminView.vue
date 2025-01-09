@@ -91,7 +91,7 @@ const edituser = (index: number, row: any) => {
 const deleteuser = async (row: any) => {
     console.log(row.id)
     const result = await deleteuserbyid(row.id);
-
+    submitgetalluserspage()
 }
 const changepages = async () => {
     const result = await getalluserspage(pages.value);
