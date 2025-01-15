@@ -2,8 +2,9 @@
 import { ref, watch } from 'vue';
 import { userlogin } from '@/api/login/index'
 import router from '@/router'
+import { useUserInfo } from '@/composables/GetuserInfo';
 
-
+const {Info, GetInfo} = useUserInfo();
 const uname = ref("")
 const passwd = ref("")
 let unameerr = ref("")
@@ -26,6 +27,7 @@ const login = async () => {
         // console.log("登录成功!")
         localStorage.removeItem('token') // 清除token
         localStorage.setItem('token', result.data);
+        GetInfo(); // 调用GetInfo将admin的信息储存进去.
         router.push({ name: 'home' })
         setTimeout(() => { router.go(0) }, 3000)
 

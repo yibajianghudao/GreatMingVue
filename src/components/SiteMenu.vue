@@ -7,13 +7,11 @@ const handleSelect = (key: string, keyPath: string[]) => {
     // 如果是退出登录
     if (key === "/user/exit") {
         localStorage.removeItem('token') // 清除token
+        localStorage.removeItem('admin')
         router.push('/')
         setTimeout(() => { router.go(0) }, 3000)
     } else {
-        // console.log(key, keyPath)
         index.value = (key)
-        // console.log(router.currentRoute.value.path)
-        // console.log(`index:${index.value}`)
         router.push(key)
     }
 
