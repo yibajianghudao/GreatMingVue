@@ -2,13 +2,13 @@ import axios from 'axios'
 const url = import.meta.env.VITE_BASE_URL
 const token = localStorage.getItem('token')
 // console.log(token)
-const getalluserspage = (pageNum:number): Promise<any> => {
+const getuserspage = (pageNum:number, pageSize:number, company:string): Promise<any> => {
   return axios
     .get(`${url}/user/userpagelist`, {
       params: {
         pageNum: pageNum,
-        pageSize: '20',
-        company: 'WJ'
+        pageSize: pageSize,
+        company: company
       },
       headers: {
         Authorization: token
@@ -23,4 +23,4 @@ const getalluserspage = (pageNum:number): Promise<any> => {
       throw err
     })
 }
-export { getalluserspage }
+export { getuserspage }

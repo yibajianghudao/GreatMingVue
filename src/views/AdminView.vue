@@ -5,7 +5,7 @@ import Menu from '../components/SiteMenu.vue';
 import { ref } from 'vue'
 import { submitGameLog, submitHandleGameLog } from '@/api/admin/submit';
 import { getGameLogs } from '@/api/admin/getgamelogs';
-import { getalluserspage } from '@/api/user/getallusers';
+import { getuserspage } from '@/api/user/getusers';
 import { registeruser } from '@/api/user/register';
 import { deleteuserbyid } from '@/api/user/deleteuser';
 import { updateuserapi } from '@/api/user/update';
@@ -57,6 +57,9 @@ const submitHandle = async () => {
 
 const userdata = ref([])
 const pages = ref(0)
+const pagesize = ref(20)
+const pagecompany = ref("")
+const pagetotal = ref(1)
 const editid = ref(0)
 const editname = ref("")
 const editcompany = ref("")
@@ -67,9 +70,13 @@ const editbalance = ref(0.0)
 const edittag = ref("")
 const dialogVisible = ref(false)
 
-const submitgetalluserspage = async () => {
-    const result = await getalluserspage(1);
+const submitgetuserspage = async (pagenum:number, size:number, company:string) => {
+    pages.value = pagenum
+    pagesize.value = size
+    pagecompany.value = company
+    const result = await getuserspage(pagenum, size, company);
     userdata.value = result.data.items
+    pagetotal.value = result.data.pages * 10
     // console.log(userdata.value)
 }
 
@@ -91,10 +98,10 @@ const edituser = (index: number, row: any) => {
 const deleteuser = async (row: any) => {
     console.log(row.id)
     const result = await deleteuserbyid(row.id);
-    submitgetalluserspage()
+    submitgetuserspage(pages.value, pagesize.value, pagecompany.value)
 }
 const changepages = async () => {
-    const result = await getalluserspage(pages.value);
+    const result = await getuserspage(pages.value, pagesize.value, pagecompany.value);
     userdata.value = result.data.items
     console.log(userdata.value)
 }
@@ -106,7 +113,7 @@ const canceledit = ()=>{
 }
 const updateuser = async ()=>{
     const result = await updateuserapi(editid.value,editname.value,edittag.value,editranks.value,editcompany.value,editkills.value,editattendance.value,editbalance.value)
-    submitgetalluserspage()
+    submitgetuserspage(pages.value, pagesize.value, pagecompany.value)
     dialogVisible.value = false
 }
 
@@ -154,7 +161,10 @@ const register = async () => {
         <el-button @click="submitHandle" type="primary">submlitHandleLog</el-button>
     </div>
     <div>
-        <el-button @click="submitgetalluserspage" type="primary">getalluserspage</el-button>
+        <el-button @click="submitgetuserspage(1, 20, pagecompany)" type="primary">getalluserspage</el-button>
+        <el-button @click="submitgetuserspage(pages, pagesize, 'WJ')" type="primary">五军</el-button>
+        <el-button @click="submitgetuserspage(pages, pagesize, 'SJ')" type="primary">神机</el-button>
+        <el-button @click="submitgetuserspage(pages, pagesize, 'SQ')" type="primary">三千</el-button>
         <el-table :data="userdata" height="500" style="width: 100%">
             <el-table-column fixed prop="name" label="名称" width="150" />
             <el-table-column prop="company" label="军营" width="120" />
@@ -172,7 +182,7 @@ const register = async () => {
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination background layout="prev, pager, next" :total="50" v-model:current-page=pages
+        <el-pagination background layout="prev, pager, next" :total=pagetotal v-model:current-page=pages
             @current-change="changepages" />
     </div>
 
