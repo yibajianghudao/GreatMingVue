@@ -3,12 +3,20 @@
 import Menu from '../components/SiteMenu.vue';
 import { onMounted, onUpdated, ref, watch } from 'vue';
 import { useUserInfo } from '@/composables/GetuserInfo';
+import { userblanceupdatelog } from '@/api/user/blanceupdatelog';
 // const componentKey = ref(0)
-
+const balancelog = ref([])
 const {Info, GetInfo} = useUserInfo();
+
+const getblanceupdatelog = async ()=>{
+    const result = await userblanceupdatelog();
+    balancelog.value = result.data
+    console.log(balancelog.value)
+}
 
 onMounted(() => {
     GetInfo();
+    getblanceupdatelog();
 })
 
 </script>
@@ -24,6 +32,18 @@ onMounted(() => {
         <ul>
             <li class="li-style-none" v-for="item in Info.keys()">{{ item + "\t\t" + Info.get(item) }}</li>
         </ul>
+    </div>
+    <div>
+        <h4>消费记录:</h4>
+        <el-table :data="balancelog" style="width: 100%">
+            <el-table-column prop="name" label="姓名" width="180" />
+            <el-table-column prop="isadd" label="增加" width="180" />
+            <el-table-column prop="balance" label="变更数额" width="180" />
+            <el-table-column prop="updatedbalance" label="剩余军饷" width="180" />
+            <el-table-column prop="updatetime" label="变更时间" width="180" />
+            <el-table-column prop="description" label="描述" />
+            
+        </el-table>
     </div>
 </template>
 
