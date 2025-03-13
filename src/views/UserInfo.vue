@@ -34,7 +34,7 @@ onMounted(() => {
         </ul>
     </div>
     <div>
-        <h4>消费记录:</h4>
+        <h4>余额变更记录:</h4>
         <el-table :data="balancelog" style="width: 100%">
             <el-table-column prop="name" label="姓名" width="180" />
             <el-table-column prop="isadd" label="增加" width="180" />
