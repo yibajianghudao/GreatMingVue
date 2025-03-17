@@ -9,6 +9,7 @@ import { getuserspage } from '@/api/user/getusers';
 import { registeruser } from '@/api/user/register';
 import { deleteuserbyid } from '@/api/user/deleteuser';
 import { updateuserapi } from '@/api/user/update';
+import { submitcountmonth } from '@/api/admin/countlogs';
 
 const textarea = ref('')
 const date = ref('')
@@ -70,7 +71,7 @@ const editbalance = ref(0.0)
 const edittag = ref("")
 const dialogVisible = ref(false)
 
-const submitgetuserspage = async (pagenum:number, size:number, company:string) => {
+const submitgetuserspage = async (pagenum: number, size: number, company: string) => {
     pages.value = pagenum
     pagesize.value = size
     pagecompany.value = company
@@ -105,14 +106,14 @@ const changepages = async () => {
     userdata.value = result.data.items
     console.log(userdata.value)
 }
-const handleeditClose = ()=>{
+const handleeditClose = () => {
     dialogVisible.value = false
 }
-const canceledit = ()=>{
+const canceledit = () => {
     dialogVisible.value = false
 }
-const updateuser = async ()=>{
-    const result = await updateuserapi(editid.value,editname.value,edittag.value,editranks.value,editcompany.value,editkills.value,editattendance.value,editbalance.value)
+const updateuser = async () => {
+    const result = await updateuserapi(editid.value, editname.value, edittag.value, editranks.value, editcompany.value, editkills.value, editattendance.value, editbalance.value)
     submitgetuserspage(pages.value, pagesize.value, pagecompany.value)
     dialogVisible.value = false
 }
@@ -125,6 +126,12 @@ const ranks = ref('')
 const company = ref('')
 const register = async () => {
     const result = await registeruser(name2.value, ranks.value, company.value);
+}
+
+const year = ref('')
+const month = ref('')
+const SubmitMonth = async () => {
+    const result = await submitcountmonth(year.value, month.value);
 }
 
 </script>
@@ -220,6 +227,14 @@ const register = async () => {
         <el-input v-model="ranks" style="width: 240px" placeholder="Please input 军衔" />
         <el-input v-model="company" style="width: 240px" placeholder="Please input 军营" />
         <el-button @click="register" type="primary">register</el-button>
+    </div>
+
+    <div>
+        <div>
+            <el-input v-model="year" style="width: 240px" placeholder="Please input year" />
+            <el-input v-model="month" style="width: 240px" placeholder="Please input month" />
+            <el-button @click="SubmitMonth" type="primary">SubmitMonth</el-button>
+        </div>
     </div>
 
 </template>
