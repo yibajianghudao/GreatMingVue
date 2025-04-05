@@ -10,6 +10,7 @@ import { registeruser } from '@/api/user/register';
 import { deleteuserbyid } from '@/api/user/deleteuser';
 import { updateuserapi } from '@/api/user/update';
 import { submitcountmonth } from '@/api/admin/countlogs';
+import { handlepaybalance } from '@/api/admin/paycount';
 
 const textarea = ref('')
 const date = ref('')
@@ -70,6 +71,7 @@ const editkills = ref(0)
 const editbalance = ref(0.0)
 const edittag = ref("")
 const dialogVisible = ref(false)
+const dialogVisible2 = ref(false)
 
 const submitgetuserspage = async (pagenum: number, size: number, company: string) => {
     pages.value = pagenum
@@ -130,9 +132,27 @@ const register = async () => {
 
 const year = ref('')
 const month = ref('')
+const monthdatas = ref('')
+const listmonthdatas = ref([])
 const SubmitMonth = async () => {
     const result = await submitcountmonth(year.value, month.value);
+    monthdatas.value = result.data
+    listmonthdatas.value = Object.values(result.data) // 关键修改
+    console.log(listmonthdatas.value)
+    dialogVisible2.value = true
 }
+const handleeditClose2 = () => {
+    dialogVisible2.value = false
+    listmonthdatas.value = []
+    monthdatas.value = ''
+    console.log(listmonthdatas.value)
+}
+const PayBalance = async () =>{
+    console.log("monthdatas:")
+    console.log(monthdatas.value)
+    const result = await handlepaybalance(monthdatas.value)
+}
+
 
 </script>
 <template>
@@ -235,6 +255,36 @@ const SubmitMonth = async () => {
             <el-input v-model="month" style="width: 240px" placeholder="Please input month" />
             <el-button @click="SubmitMonth" type="primary">SubmitMonth</el-button>
         </div>
+        <el-dialog v-model="dialogVisible2" title="This Mouth's Count" width="800" :before-close="handleeditClose2">
+            <div>
+                <el-table :data="listmonthdatas" height="500" style="width: 100%">
+                    <el-table-column fixed prop="name" label="名称" width="150" />
+                    <el-table-column prop="company" label="军营" width="120" />
+                    <!-- <el-table-column prop="ranks" label="军衔" width="120" /> -->
+                    <el-table-column prop="attendance" label="出勤" width="120" />
+                    <el-table-column prop="kills" label="击杀" width="120" />
+                    <el-table-column prop="balance" label="军饷" width="120" />
+                    <!-- <el-table-column prop="tag" label="标签" width="120" /> -->
+
+                    <!-- <el-table-column fixed="right" label="操作" min-width="120">
+                        <template #default="scope">
+                            <el-button link type="primary" size="small"
+                                @click="edituser(scope.$index, scope.row)">Edit</el-button>
+                            <el-button link type="primary" size="small"
+                                @click="deleteuser(scope.row)">delete</el-button>
+                        </template>
+                    </el-table-column> -->
+                </el-table>
+            </div>
+            <template #footer>
+                <div class="dialog-footer">
+                    <el-button @click="handleeditClose2">Cancel</el-button>
+                    <el-button type="primary" @click="PayBalance">
+                        Confirm To Paying Balance
+                    </el-button>
+                </div>
+            </template>
+        </el-dialog>
     </div>
 
 </template>
